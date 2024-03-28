@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="style3.css">
+</head>
+<body>
+	<nav>
+	    <ul>
+	    	<li class = "logo">Library management system</li>
+	      	<li class = "item-start">
+	        	<a class="nav-link" th:href="@{/home(book_type='Book')}">Books</a>
+	      	</li>
+	      	<li class = "item">
+	        	<a class="nav-link" th:href="@{/home(book_type='eBook')}">E Books</a>
+	      	</li>
+	      	<li class = "item-end">
+	        	<a class="nav-link" th:href="@{/createBook}">Add Book</a>
+	      	</li>
+		    <li class = "item">
+		        <a class="nav-link" th:href="${username} ? '': @{/login}"><span th:text="${username} ? ${username}: 'Login'"></span></a>
+		    </li>
+		    <li class = "item">
+		       	<a class="nav-link" th:href="@{/register}">Register</a>
+		    </li>
+	    </ul>
+	    <!-- <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form> -->
+	</nav>
+	<h4>Book's Catalog</h4>
+	<div class = "row">
+		<div class = "col col-sm-7">
+			<div class = "container second">
+			    <form th:action = "@{/home}">
+					<input type = "text" th:name = "registration_id" id = "registration_id" name = "registration_id" class = "col-sm-6 form-control" placeholder = "RegistrationNo.">
+					<input type = "text" th:name = "book_name" id = "book_name" name = "book_name" class = "form-control col-sm-6" placeholder = "Book Name">
+					<select class = "form-control col-sm-6" id = "category_name" name = "category_name" th:name="category_name">
+						<option value="">select category</option>
+						<option th:each = "category : ${categories}" th:value = "${category.category_name}" th:text = "${category.category_name}"></option>
+					</select>
+					<input type = "text" id = "author" th:name = "author" name = "author" class = "form-control col-sm-6" placeholder = "Author">
+					<!-- <input type ="submit" class = "mt-3" style = "width: 35%; padding: 10px; margin-left: 30%; background: #315602; border: 0; color: white;" value = "Add Book"> -->
+					<!-- <a th:href="@{/home(registration_id=${book_model.registration_id},book_name=${book_model.book_name},category_name=${book_model.category_name},author=${book_model.author})}" style="padding: 2%; width: 35%; margin-left: 30%; background: #315602; border: 0; color: white;">Search</a> -->
+					<input type="submit" class = "form-control col-sm-2" value = "Search">
+				</form>
+			</div>
+			<div class = "container">
+				<div class = "container c4 mt-5" th:if="${book.isEmpty}">
+						<h5>Book Not Found</h5>
+					</div>
+				<div class="row">
+					<div class="col col-sm-3" th:each="book : ${book}">
+						<div id="hide">
+							Book Name: <span th:text="${book.book_name}"></span>
+							<br/>
+							Author: <span th:text="${book.author}"></span>
+							<br/>
+							Book Type: <span th:text="${book.book_type}"></span>
+							<br/>
+							Produced-year: <span th:text="${book.produced_year}"></span>
+							<br/>
+							Category: <span th:text="${book.category_name}"></span>
+			            </div>
+						<div id="product-container">
+							<center><div class = "pdf_icon"><img th:src="@{/images/pdf.png}" alt="pdf" width="50%" height="50%"></div></center>
+			                <!-- <span th:text="${book.book_name}"></span> -->
+					        <br /> 
+					        <a th:href="@{/file/{id} (id=${book.registration_id})}" class = "mt-2" style="display: grid; justify-content: center;"><span style="color:#216f2e">Download</span></a>
+					        <br />
+					        <a th:href="@{/update/{id}(id=${book.id})}" class="row" style="border: 1px solid #61911F; background-color: #79bd15; width: 100%; height: 25%; margin-left:0; display: grid; justify-content: center;"><span style="color:white; text-align: center;">Update</span></a>  
+			            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class = "col col-sm-4">
+			<div class = "container c2">
+				<div class="row">
+					<div class = "col col-sm-10 title">
+						<span>Book Categories
+							<a class="btn" th:href="@{/createCategory}"><i class="bi bi-plus-circle-fill" style="color:white;"></i></a>
+						</span>
+					</div>
+						<div class = "col col-sm-10 item_category" th:each = "category: ${categories}">
+							<a class="btn" id = "category_btn" onclick = "selected(this)" th:href="@{/home(category_name=${category.category_name})}"><span th:text="${category.category_name}"></span></a>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

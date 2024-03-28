@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.librarymange.repository.UserDataMapper">
+	<resultMap type="com.librarymange.entity.User" id="userDataResultMap">
+		<id column = "id" property = "id"></id>
+		<result column = "name" property = "name"></result>
+		<result column = "password" property = "password"></result>
+		<result column = "email" property = "email"></result>
+		<result column = "phone" property = "phone"></result>
+		<result column = "created_at" property = "created_at"></result>
+		<result column = "updated_at" property = "updated_at"></result>
+		<result column = "deleted_at" property = "deleted_at"></result>
+		<result column = "role" property = "role"></result>
+	</resultMap>
+	
+	<select id = "getAllUsers" resultMap = "userDataResultMap">
+		SELECT * FROM public.user;
+	</select>
+	
+	<select id = "findByUsername" parameterType = "String" resultMap = "userDataResultMap">
+		SELECT * FROM public.user where name = #{name};
+	</select>
+	
+	<insert id="registerUser" parameterType="com.librarymange.entity.User">
+		INSERT INTO public.user(name, password, email, phone, created_at, role)
+		VALUES (#{name}, #{password}, #{email}, #{phone}, #{created_at}, #{role})
+	</insert>
+	
+</mapper>

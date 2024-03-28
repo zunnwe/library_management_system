@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.librarymange.repository.BookDetailMapper">
+	<resultMap type="com.librarymange.entity.BookDetail" id="bookDetailResultMap">
+		<id column = "id" property = "id"></id>
+		<result column = "registration_id" property = "registration_id"></result>
+		<result column = "category_name" property = "category_name"></result>
+		<result column = "book_name" property = "book_name"></result>
+		<result column = "author" property = "author"></result>
+		<result column = "produced_year" property = "produced_year"></result>
+		<result column = "book_type" property = "book_type"></result>
+		<result column = "file" property = "file"></result>
+		<result column = "status" property = "status"></result>
+		<result column = "created_at" property = "created_at"></result>
+		<result column = "updated_at" property = "updated_at"></result>
+		<result column = "deleted_at" property = "deleted_at"></result>
+	</resultMap>
+	
+	<select id = "getAllBooks" resultMap = "bookDetailResultMap">
+		 select * from public.book_detail
+		    where 1=1
+		    <if test="category_name != null and category_name != ''">
+		     and category_name = #{category_name}
+		    </if>
+		    <if test="registration_id != null and registration_id != ''">
+		     and registration_id = #{registration_id}
+		    </if>
+		    <if test="book_name != null and book_name != ''">
+		     and book_name = #{book_name}
+		    </if>
+		    <if test="author != null and author != ''">
+		     and author = #{author}
+		    </if>
+		    <if test="book_type != null and book_type != ''">
+		     and book_type = #{book_type}
+		    </if> 
+	</select>
+	
+	<select id = "searchBook" resultMap = "bookDetailResultMap">
+		 select * from public.book_detail
+		    where 1=1
+		     and category_name = #{category_name}
+		     and registration_id = #{registration_id}
+		     and book_name = #{book_name}
+		     and author = #{author}
+	</select>
+	<select id = "searchBookByRegId" resultMap = "bookDetailResultMap">
+		 select * from public.book_detail
+		    where 1=1
+		    and registration_id = #{registration_id}
+	</select>
+	<select id = "searchBookByBookName" resultMap = "bookDetailResultMap">
+		 select * from public.book_detail
+		    where 1=1
+		    and book_name = #{book_name}
+		    and author = #{author}
+	</select>
+	<select id = "searchBookByAuthor" resultMap = "bookDetailResultMap">
+		 select * from public.book_detail
+		    where 1=1
+		    and author = #{author}
+	</select>
+	<select id = "findByID" parameterType = "int" resultMap = "bookDetailResultMap">
+		SELECT * FROM public.book_detail where id = #{id};
+	</select>
+	
+	<select id = "findByRegID" parameterType = "String" resultMap = "bookDetailResultMap">
+		SELECT * FROM public.book_detail where registration_id = #{registration_id};
+	</select>
+	
+	<!-- <select id = "findByCategoryname" parameterType = "String" resultMap = "bookDetailResultMap">
+		SELECT * FROM public.book_detail where category_name = #{category_name};
+	</select> -->
+	
+	<insert id="saveBook" parameterType="com.librarymange.entity.BookDetail">
+		INSERT INTO public.book_detail(registration_id, category_name, book_name, author, produced_year, book_type, file, status, created_at)
+		VALUES (#{registration_id}, #{category_name}, #{book_name}, #{author}, #{produced_year}, #{book_type}, #{file}, #{status}, #{created_at})
+	</insert>
+	
+	<update id = "updateBook" parameterType = "com.librarymange.entity.BookDetail">
+		UPDATE public.book_detail
+		SET registration_id = #{registration_id}, category_name = #{category_name}, book_name = #{book_name}, author = #{author}, produced_year = #{produced_year}, book_type = #{book_type}, updated_at = #{updated_at}
+			WHERE id = #{id}
+	</update>
+	
+	<select id = "getAllBookCategories" resultMap = "com.librarymange.repository.BookCategoryMapper.bookCategoryResultMap">
+		SELECT * FROM public.book_category;
+	</select>
+	
+</mapper>

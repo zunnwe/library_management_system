@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    name="viewport">
+<meta content="ie=edge" http-equiv="X-UA-Compatible">
+<title>Registration</title>
+<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body style = "background: #9AE639;">
+	<div align = "center"><h1 class = "py-5">UPDATE BOOK</h1></div>
+	<div class = "container">
+		<form th:action = "@{/updateBookForm}" method = "post" th:object = ${book} enctype = "multipart/form-data" class="form-horizontal" style = "width: 60%; margin-left: 25%;">
+			<input type="hidden" th:field="*{id}" name = "id">
+			<div class = "form-group form-inline mt-3">
+				<label class = "control-label col-sm-4" for = "registration_id">Registration ID</label>
+				<div class = "col-sm-1"></div>
+				<input type = "text" th:field = "*{registration_id}" id = "registration_id" name = "registration_id" class = "col-sm-6 form-control">
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "control-label col-sm-4" for = "book_name">Book Name</label>
+				<div class = "col-sm-1"></div>
+				<input type = "text" th:field = "*{book_name}" id = "book_name" name = "book_name" class = "form-control col-sm-6">
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "col-sm-4 control-label" for = "category_name">Category Name</label>
+				<div class = "col-sm-1"></div>
+				<select class = "form-control col-sm-6" id = "category_name" name = "category_name">
+					<option th:value="*{category_name}" th:text = "*{category_name}"></option>
+					<option th:each = "category : ${categories}" th:value = "${category.category_name}" th:text = "${category.category_name}"></option>
+				</select>
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "col-sm-4 control-label" for = "author">Author</label>
+				<div class = "col-sm-1"></div>
+				<input type = "text" th:field = "*{author}" id = "author" name = "author" class = "form-control col-sm-6">
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "col-sm-4 control-label" for = "produced_year">Produced Year</label>
+				<div class = "col-sm-1"></div>
+				<input type = "text" th:field = "*{produced_year}" id = "produced_year" name = "produced_year" class = "form-control col-sm-6">
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "col-sm-4 control-label" for = "book_type">Book Type</label>
+				<div class = "col-sm-1"></div>
+				<!-- <input type = "text" th:field = "*{book_type}" id = "book_type" name = "book_type" class = "form-control mt-3"> -->
+					<select name="book_type" id="book_type" class="form-control col-sm-6">
+			            <option>Book</option>
+			            <option>eBook</option>
+			        </select>
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<label class = "col-sm-4 control-label" for = "file">Book</label>
+				<div class = "col-sm-1"></div>
+				<input type = "file" id = "file" name = "file" class = "form-control col-sm-6">
+			</div>
+			<div class = "form-group form-inline mt-3">
+				<input type ="submit" style = "background: #315602; padding: 10px; text-align: center; color: white;" value = "Update Book" class = "btn col-sm-5">
+				<div class = "col-sm-1"></div>
+				<a class="btn col-sm-5" th:href="@{/home}" style = "background: #315602; padding: 10px; text-align: center; color: white;">Cancel</a>
+			</div>
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+	document.getElementById("file").addEventListener("change", function() {
+		  if (this.value) {
+		    this.setAttribute("data-title", this.value.replace(/^.*[\\\/]/, ''));
+		  } else {
+		    this.setAttribute("data-title", "No file chosen");
+		  }
+		});
+	</script>
+</body>
+</html>

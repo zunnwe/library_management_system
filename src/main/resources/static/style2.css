@@ -1,0 +1,32 @@
+form{
+	width: 30%;
+}
+body{
+	background: #ffffff;
+}
+input[type="text"] {
+  background-color : #EFF7E4; 
+  border: 1px solid black;
+}
+input[type="email"] {
+  background-color : #EFF7E4; 
+  border: 1px solid black;
+}
+input[type="password"] {
+  background-color : #EFF7E4; 
+  border: 1px solid black;
+}
+input[type="submit"] {
+	width: 100%; 
+	padding: 10px; 
+	background: #9AE639; 
+	border: 0px;
+	font-weight: bold;
+}
+a.btn {
+	width: 100%; 
+	padding: 10px; 
+	background: #9AE639; 
+	border: 0px;
+	font-weight: bold;
+}

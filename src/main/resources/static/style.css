@@ -1,0 +1,53 @@
+form{
+	width: 60%;
+	margin-left: 25%;
+}
+body{
+	background: #9AE639;
+}
+.col-sm-4{
+	color: white;
+	font-weight: bold;
+	background-color: #7FCF18;
+	padding: 5px;
+	width: 100px;
+	border: 0px solid;
+}
+input[type="text"]{
+	background-color: #7FCF18;
+	border: 0;
+}
+#book_type{
+	background-color: #7FCF18;
+}
+input[type="file"]{
+	background-color: #7FCF18;
+	border: 0;
+}
+#file::-webkit-file-upload-button{
+  visibility: hidden;
+}
+select#book_type, select#category_name{
+	background-color: #7FCF18;
+	border: 0;
+}
+tr{
+	border: 1px solid;
+	width: 100px;
+	height: 100px;
+}
+.product-container{
+	color: white;
+	font-weight: bold;
+	background-color: #7FCF18;
+	padding: 5px;
+	width: 40%;
+	border: 0px solid;
+	height: 90%;
+}
+.row{
+	margin-left: 5% 0% 5% 5%;
+}
+.col{
+	margin-left: 5%;
+}
